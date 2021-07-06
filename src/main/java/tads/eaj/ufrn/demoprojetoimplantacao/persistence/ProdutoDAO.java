@@ -13,13 +13,13 @@ public class ProdutoDAO {
 
     private Conexao minhaConexao;
 
-    private String VERIFICAR = "SELECT EXISTS " +
+    /*private String VERIFICAR = "SELECT EXISTS " +
             "(" +
             "SELECT 1" +
             "FROM information_schema.tables " +
             "WHERE table_schema = \'public\'" +
             "AND table_name = \'Produto\'" +
-            ");";
+            ");";*/
     private String CADASTRAR = "INSERT INTO public.\"Produto\"(" +
             " nome, descricao, preco, quantidade, tipo)" +
             "VALUES (?, ?, ?, ?, ?);";
@@ -52,7 +52,7 @@ public class ProdutoDAO {
 
 
 
-    public boolean verificar() throws SQLException {
+    /*public boolean verificar() throws SQLException {
         ResultSet rs = null;
         try {
             minhaConexao.conectar();
@@ -64,7 +64,7 @@ public class ProdutoDAO {
             System.out.println("Erro na verificacao:" +e.getMessage());
         }
         return rs.getBoolean("exists");
-    }
+    }*/
 
     public void cadastrar(Produto p) {
         try {

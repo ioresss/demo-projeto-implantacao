@@ -20,7 +20,7 @@ public class Config {
 
         try{
             ProdutoDAO pDAO = new ProdutoDAO();
-            if(pDAO.verificar()){
+
                 pDAO.criar();
                 Produto p;
                 pDAO.cadastrar(new Produto("Toalha de banho FOFA", "Toalha fofa e boa de secar", 10, "banho", 10.10));
@@ -30,14 +30,11 @@ public class Config {
                 pDAO.cadastrar(new Produto("Toalha de mesa ELEGANZA", "Toalha de mesa cheia de carisma, nervo e talento!", 10, "mesa", 29.99));
 
                 response.getWriter().println("OK");
-            }
-            else{
-                response.getWriter().println("Configuração ja feita");
-            }
 
 
-        }catch (IOException | SQLException e) {
-            response.getWriter().println("Erro ao criar o banco de dados!");
+
+        }catch (IOException e) {
+            response.getWriter().println("Erro !");
 
 
         }
