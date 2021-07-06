@@ -9,6 +9,7 @@ import tads.eaj.ufrn.demoprojetoimplantacao.persistence.ProdutoDAO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @Controller
 @RequestMapping(value = "/config")
@@ -19,17 +20,23 @@ public class Config {
 
         try{
             ProdutoDAO pDAO = new ProdutoDAO();
-            pDAO.criar();
-            Produto p;
-            pDAO.cadastrar(new Produto("Toalha de banho FOFA", "Toalha fofa e boa de secar", 10, "banho", 10.10));
-            pDAO.cadastrar(new Produto("Toalha de rosto FOFA", "Toalha fofa e boa de secar", 10, "banho", 5.05));
-            pDAO.cadastrar(new Produto("Edredon durma com os anjos", "Edredon que faz vc sentir q foi pro céu", 10, "cama", 55.50));
-            pDAO.cadastrar(new Produto("Jogo de cama casal queen size SHINGEKI NO KYOJIN", "pra vc que é um otaku", 10, "cama", 169.99));
-            pDAO.cadastrar(new Produto("Toalha de mesa ELEGANZA", "Toalha de mesa cheia de carisma, nervo e talento!", 10, "mesa", 29.99));
+            if(pDAO.verificar()){
+                pDAO.criar();
+                Produto p;
+                pDAO.cadastrar(new Produto("Toalha de banho FOFA", "Toalha fofa e boa de secar", 10, "banho", 10.10));
+                pDAO.cadastrar(new Produto("Toalha de rosto FOFA", "Toalha fofa e boa de secar", 10, "banho", 5.05));
+                pDAO.cadastrar(new Produto("Edredon durma com os anjos", "Edredon que faz vc sentir q foi pro céu", 10, "cama", 55.50));
+                pDAO.cadastrar(new Produto("Jogo de cama casal queen size SHINGEKI NO KYOJIN", "pra vc que é um otaku", 10, "cama", 169.99));
+                pDAO.cadastrar(new Produto("Toalha de mesa ELEGANZA", "Toalha de mesa cheia de carisma, nervo e talento!", 10, "mesa", 29.99));
 
-            response.getWriter().println("OK");
+                response.getWriter().println("OK");
+            }
+            else{
+                response.getWriter().println("Configuração ja feita");
+            }
 
-        }catch (IOException e) {
+
+        }catch (IOException | SQLException e) {
             response.getWriter().println("Erro ao criar o banco de dados!");
 
 

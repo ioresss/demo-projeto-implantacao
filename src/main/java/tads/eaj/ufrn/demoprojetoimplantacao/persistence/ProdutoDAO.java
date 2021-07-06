@@ -13,9 +13,16 @@ public class ProdutoDAO {
 
     private Conexao minhaConexao;
 
+    private String VERIFICAR = "SELECT EXISTS " +
+            "(" +
+            "SELECT 1" +
+            "FROM information_schema.tables " +
+            "WHERE table_schema = \'public\'" +
+            "AND table_name = \'Produto\'" +
+            ");";
     private String CADASTRAR = "INSERT INTO public.\"Produto\"(" +
             " nome, descricao, preco, quantidade, tipo)" +
-            "VALUES (?, ?, ?, ?, ?, ?);";
+            "VALUES (?, ?, ?, ?, ?);";
     private String RELATORIO = "SELECT id_produto, nome, descricao, preco, quantidade, tipo FROM public.\"Produto\"";
 
     private String BUSCAR = "SELECT * FROM public.\"Produto\" WHERE id_produto = ?";
@@ -39,6 +46,24 @@ public class ProdutoDAO {
         System.getenv("DATABASE_USERNAME"), System.getenv("DATABASE_PASSWORD"));
 
 
+    }
+
+
+
+
+
+    public boolean verificar() throws SQLException {
+        ResultSet rs = null;
+        try {
+            minhaConexao.conectar();
+            Statement instrucao = minhaConexao.getConexao().createStatement();
+            rs = instrucao.executeQuery(VERIFICAR);
+            rs.next();
+
+        }catch (SQLException e){
+            System.out.println("Erro na verificacao:" +e.getMessage());
+        }
+        return rs.getBoolean("exists");
     }
 
     public void cadastrar(Produto p) {

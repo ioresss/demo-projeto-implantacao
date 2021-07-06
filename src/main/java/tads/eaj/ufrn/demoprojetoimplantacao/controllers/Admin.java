@@ -16,13 +16,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
-@RequestMapping(value = "/admin")
 public class Admin {
 
     ProdutoDAO pdao = new ProdutoDAO();
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
-
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ProdutoDAO pdao = new ProdutoDAO();
         response.getWriter().println("<!DOCTYPE html>" +
@@ -38,7 +36,7 @@ public class Admin {
                 "    Nome:<input type=\"text\" name=\"nome\"><br />" +
                 "    Descricao:<input type=\"text\" name=\"descricao\"> <br />" +
                 "    Tipo: <input type=\"text\" name=\"tipo\"> <br />" +
-                "    Preco: <input type=\"number\" name=\"preco\"> <br />" +
+                "    Preco: <input type=\"number\" step=\"0.01\" min=\"0\" name=\"preco\"> <br />" +
                 "    Quantidade: <input type=\"number\" name=\"quantidade\"> <br />" +
                 "    <button type=\"submit\">Cadastar</button>" +
                 "</form>" +
@@ -64,9 +62,7 @@ public class Admin {
                 Integer.parseInt(request.getParameter("quantidade")),
                 request.getParameter("tipo"),
                 Double.parseDouble(request.getParameter("preco"))
-
         );
-
         pdao.cadastrar(p);
         response.sendRedirect("/admin");
     }
