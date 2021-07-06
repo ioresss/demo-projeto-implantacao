@@ -29,7 +29,7 @@ public class ProdutoDAO {
 
     private String CRIAR = "CREATE TABLE IF NOT EXISTS public.\"Produto\"\n" +
             "(\n" +
-            "    id_produto integer NOT NULL DEFAULT nextval('\"Produto_id_produto_seq\"'::regclass),\n" +
+            "    id_produto serial,\n" +
             "    nome text COLLATE pg_catalog.\"default\" NOT NULL,\n" +
             "    descricao text COLLATE pg_catalog.\"default\" NOT NULL,\n" +
             "    preco double precision NOT NULL,\n" +
@@ -128,8 +128,8 @@ public class ProdutoDAO {
 
         try{
             minhaConexao.conectar();
-            PreparedStatement instrucao = minhaConexao.getConexao().prepareStatement(CRIAR);
-            instrucao.execute();
+            Statement instrucao = minhaConexao.getConexao().createStatement();
+            instrucao.execute(CRIAR);
             minhaConexao.desconectar();
 
         }catch (SQLException e) {
