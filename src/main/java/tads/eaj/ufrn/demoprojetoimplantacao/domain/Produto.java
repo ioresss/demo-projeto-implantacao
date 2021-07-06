@@ -23,6 +23,14 @@ public class Produto {
         this.preco = preco;
     }
 
+    public Produto( String nome, String descricao, int quantidade, String tipo, double preco) {
+
+        this.nome = nome;
+        this.descricao = descricao;
+        this.quantidade = quantidade;
+        this.tipo = tipo;
+        this.preco = preco;
+    }
     public Produto() {
 
     }
